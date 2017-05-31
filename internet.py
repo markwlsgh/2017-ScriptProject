@@ -5,73 +5,16 @@ import urllib.request
 import urllib
 
 
-key = 'c03YHDs%2B02nwNGnfZZhdQ%2FKC9cED7eHY1%2FzWomZJ7fTb4VyTLJ%2B29l1111N33w6yEnXmGnVeK34wEcnFUMjSKg%3D%3D'
+key = '4VB0o7ZOlNdClfP%2FidH3cNjCCsAfg3APKmEf7Tqg4aS2uPSNn1pA2avCeTcqVVY4pV6I7252637lX8LFUtxXJQ%3D%3D'
 
-def Date_Showing_Parsing():
-    COURSE_ID = str(input("관광코스 아이디를 입력하세요 : "))
-    numOfRows = str(input("몇개 출력하실건가요? : "))
-    CURRENT_DATE = str(input("기준날짜 : "))
-    HOUR = str(input("기준날짜부터 몇시간까지 조회하실건가요? : "))
-
-    global key
-    url = 'http://newsky2.kma.go.kr/service/TourSpotInfoService/SpotShrtData?'
-    new_url = url + 'serviceKey='+ key + '&HOUR=' +HOUR +'&COURSE_ID=' +COURSE_ID + '&pageNo=1' + '&startPage=1' + '&numOfRows=' + numOfRows + '&pageSize=10' +'&CURRENT_DATE=' + CURRENT_DATE
-
-    data=urllib.request.urlopen(new_url).read()
-    d=str(data.decode('utf-8'))
-
-    from xml.etree import ElementTree
-    tree = ElementTree.fromstring(d)
-
-    itemElements = tree.getiterator("item")  # return list type
-    #print(itemElements)
-
-    for item in itemElements:
-        tm = item.find("tm").text  #예보시간
-        courseId = item.find("courseId").text # 코스 아이디
-        courseAreaId = item.find("courseAreaId").text #코스 지역아이디
-        courseAreaName = item.find("courseAreaName").text #코스 지역이름
-        spotAreaId = item.find("spotAreaId").text # 관광지 지역아이디
-        spotAreaName = item.find("spotAreaName").text # 관광지 지역이름
-        courseName = item.find("courseName").text # 코스명
-        spotName = item.find("spotName").text # 관광지명
-        thema = item.find("thema").text # 테마
-        th3 = item.find("th3").text # 3시간 기온
-        #maxTa = item.find("maxTa").text #최고기온
-        #minTa = item.find("minTa").text #최저기온
-        wd = item.find("wd").text #풍향
-        ws = item.find("ws").text #풍속
-        sky = item.find("sky").text #하늘상태
-        rhm = item.find("rhm").text #습도
-        pop = item.find("pop").text #강수확률
-        #rn = item.find("rn").text   #강수량
-
-
-        print("=========================================")
-        print("예보 시간 : ", tm)
-        print("코스 이름 : ", courseName)
-        print("관광지 지역 이름 : ", spotAreaName)
-        print("관광지 이름 : ", spotName)
-        print("테마 : ", thema)
-        print("기온 : ", th3)
-        print("하늘 상태 : ", sky)
-        print("풍향 : ", wd)
-        print("풍속 : ", ws)
-        print("습도 : ", rhm)
-        print("강수확률 : ", pop)
-        print("=========================================굈")
-
-
-def Area_Showing_Parsing():
-
-    COURSE_ID = str(input("관광코스 아이디를 입력하세요 : "))
-    numOfRows = str(input("몇개 출력하실건가요? : "))
-    CURRENT_DATE = str(input("기준날짜 : "))
-    HOUR = str(input("기준날짜부터 몇시간까지 조회하실건가요? : "))
+#키워드 검색
+def AreaFinding():
+    keyword = str(input("Keyword : "))
+    hangul_utf8 = urllib.parse.quote(keyword)
 
     global key
-    url = 'http://newsky2.kma.go.kr/service/TourSpotInfoService/SpotIdxData?'
-    new_url = url +'serviceKey='+ key + '&CURRENT_DATE=' + CURRENT_DATE + '&HOUR=' + HOUR + '&COURSE_ID=' +COURSE_ID + '&pageNo=1&startPage=1'+ '&numOfRows=' + numOfRows + '&pageSize=3'
+    url = 'http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchKeyword?'
+    new_url = url + 'ServiceKey=' + key + '&keyword=' + hangul_utf8 + '&MobileOS=ETC&MobileApp=AppTesting'
 
     data = urllib.request.urlopen(new_url).read()
     d = str(data.decode('utf-8'))
@@ -83,32 +26,188 @@ def Area_Showing_Parsing():
     # print(itemElements)
 
     for item in itemElements:
-        tm = item.find("tm").text  # 예보시간
-        courseId = item.find("courseId").text  # 코스 아이디
-        courseAreaId = item.find("courseAreaId").text  # 코스 지역아이디
-        courseAreaName = item.find("courseAreaName").text  # 코스 지역이름
-        spotAreaId = item.find("spotAreaId").text  # 관광지 지역아이디
-        spotAreaName = item.find("spotAreaName").text  # 관광지 지역이름
-        courseName = item.find("courseName").text  # 코스명
-        spotName = item.find("spotName").text  # 관광지명
-        thema = item.find("thema").text  # 테마
-        uvIndex = item.find("uvIndex").text
-        fdIndex = item.find("fdIndex").text
-        plIndexSo = item.find("plIndexSo").text
-        plIndexWeed = item.find("plIndexWeed").text
-        plIndexCharm = item.find("plIndexCharm").text
-
+        addr1 = item.find("addr1").text  # 주소
+        addr2 = item.find("addr2").text  # 동
+        #areacode = item.find("areacode").text  # 지역번호
+        mapx = item.find("mapx").text  # x좌표
+        mapy = item.find("mapy").text  # y좌표
+        title = item.find("title").text  # 관광지 지역이름
+        #tel = item.find("tel").text #전화번호
+        #createdtime = item.find("createdtime").text  # 등록일
 
         print("=========================================")
-        print("예보 시간 : ", tm)
-        print("코스 이름 : ", courseName)
-        print("관광지 지역 이름 : ", spotAreaName)
-        print("관광지 이름 : ", spotName)
-        print("테마 : ", thema)
-        print("자외선 지수 : ", uvIndex)
-        print("식중독지수 : ", fdIndex )
-        print("소나무 꽃가루 지수 : ", plIndexSo)
-        print("잡초 꽃가루 지수 : ", plIndexWeed)
-        print("참나무 꽃가루 지수 : ", plIndexCharm )
+        print("title : ", title)
+        print("address : ", addr1)
+        print("detailed address : ", addr2)
+        #print("areacode : ", areacode)
+        print("GPS x : ", mapx)
+        print("GPS y : ", mapy)
+        #print("tel  : ", tel)
+        #print("createdtime : ", createdtime)
+        print("=========================================")
 
-        print("=========================================굈")
+
+#키워드 검색
+def FindingKeyword():
+    keyword = str(input("Keyword : "))
+    hangul_utf8 = urllib.parse.quote(keyword)
+
+    global key
+    url = 'http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchKeyword?'
+    new_url = url + 'ServiceKey='+ key + '&keyword=' + hangul_utf8 + '&MobileOS=ETC&MobileApp=AppTesting'
+
+    data = urllib.request.urlopen(new_url).read()
+    d = str(data.decode('utf-8'))
+
+    from xml.etree import ElementTree
+    tree = ElementTree.fromstring(d)
+
+    itemElements = tree.getiterator("item")  # return list type
+    #print(itemElements)
+
+    for item in itemElements:
+        addr1 = item.find("addr1").text  #주소
+        #addr2 = item.find("addr2").text #동
+        areacode = item.find("areacode").text #지역번호
+        mapx = item.find("mapx").text #x좌표
+        mapy = item.find("mapy").text #y좌표
+        title = item.find("title").text # 관광지 지역이름
+        #tel = item.find("tel").text #전화번호
+        createdtime = item.find("createdtime").text #등록일
+
+        print("=========================================")
+        print("title : ", title)
+        print("address : ", addr1)
+        #print("detailed address : ", addr2)
+        print("areacode : ", areacode)
+        print("GPS x : ", mapx)
+        print("GPS y : ", mapy)
+        #print("tel  : ", tel)
+        print("createdtime : " , createdtime)
+        print("=========================================")
+
+
+#행사검색
+def SearchFestival():
+    evejtstartDate = str(input("start date : "))
+    eventEndDate = str(input("end date : "))
+    arrange = str(input("sorting (A=title, B=look, C=change, D=create date): " ))
+
+
+    global key
+    url = 'http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchFestival?'
+    new_url = url + 'ServiceKey='+ key + '&eventStartDate=' + evejtstartDate + '&eventEndDate=' + eventEndDate + '&arrange=' + arrange + 'listYN=Y&pageNo=1&numOfRows=10&MobileOS=ETC&MobileApp=AppTesting'
+    data = urllib.request.urlopen(new_url).read()
+    d = str(data.decode('utf-8'))
+
+    from xml.etree import ElementTree
+    tree = ElementTree.fromstring(d)
+
+    itemElements = tree.getiterator("item")  # return list type
+    #print(itemElements)
+
+    for item in itemElements:
+        addr1 = item.find("addr1").text  #주소
+        addr2 = item.find("addr2").text #동
+        areacode = item.find("areacode").text #지역번호
+        mapx = item.find("mapx").text #x좌표
+        mapy = item.find("mapy").text #y좌표
+        title = item.find("title").text # 관광지 지역이름
+        #tel = item.find("tel").text #전화번호
+        createdtime = item.find("createdtime").text #등록일
+        eventstartdate = item.find("eventstartdate").text #행사시작일
+        eventenddate = item.find("eventenddate").text #행사종료일
+
+        print("=========================================")
+        print("title : ", title)
+        print("address : ", addr1)
+        print("detailed address : ", addr2)
+        print("eventstartdate : ", eventstartdate)
+        print("eventenddate : ", eventenddate)
+        print("areacode : ", areacode)
+        print("GPS x : ", mapx)
+        print("GPS y : ", mapy)
+        #print("tel  : ", tel)
+        print("createdtime : " , createdtime)
+        print("=========================================")
+
+
+def SearchNear():
+    print("#&mapX=126.981611&mapY=37.568477&radius=1000")
+    mapX = str(input("Position x : "))
+    mapY = str(input("Position y : "))
+    radius = str(input("radius (m) : "))
+    global key
+    url = 'http://api.visitkorea.or.kr/openapi/service/rest/KorService/locationBasedList?'
+    new_url = url + 'ServiceKey=' + key + '&mapX=' + mapX + '&mapY=' + mapY + '&radius=' + radius + '&pageNo=1&numOfRows=10&listYN=Y&arrange=A&MobileOS=ETC&MobileApp=AppTesting'
+
+    data = urllib.request.urlopen(new_url).read()
+    d = str(data.decode('utf-8'))
+
+    from xml.etree import ElementTree
+    tree = ElementTree.fromstring(d)
+
+    itemElements = tree.getiterator("item")  # return list type
+    # print(itemElements)
+
+    for item in itemElements:
+        addr1 = item.find("addr1").text  # 주소
+        addr2 = item.find("addr2").text  # 동
+        areacode = item.find("areacode").text  # 지역번호
+        mapx = item.find("mapx").text  # x좌표
+        mapy = item.find("mapy").text  # y좌표
+        title = item.find("title").text  # 관광지 지역이름
+        # tel = item.find("tel").text #전화번호
+        createdtime = item.find("createdtime").text  # 등록일
+        dist = item.find("dist").text
+
+        print("=========================================")
+        print("title : ", title)
+        print("address : ", addr1)
+        print("detailed address : ", addr2)
+        print("areacode : ", areacode)
+        print("GPS x : ", mapx)
+        print("GPS y : ", mapy)
+        # print("tel  : ", tel)
+        print("createdtime : ", createdtime)
+        print("dist(m) : ", dist)
+        print("=========================================")
+
+
+def SearchStay():
+
+    global key
+    url = 'http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchStay?'
+    new_url = url + 'ServiceKey=' + key + '&goodStay=1'  + '&arrange=A&listYN=Y&pageNo=1&numOfRows=10&MobileOS=ETC&MobileApp=AppTesting'
+
+    data = urllib.request.urlopen(new_url).read()
+    d = str(data.decode('utf-8'))
+
+    from xml.etree import ElementTree
+    tree = ElementTree.fromstring(d)
+
+    itemElements = tree.getiterator("item")  # return list type
+    # print(itemElements)
+
+    for item in itemElements:
+        addr1 = item.find("addr1").text  # 주소
+        addr2 = item.find("addr2").text  # 동
+        areacode = item.find("areacode").text  # 지역번호
+        mapx = item.find("mapx").text  # x좌표
+        mapy = item.find("mapy").text  # y좌표
+        title = item.find("title").text  # 관광지 지역이름
+        # tel = item.find("tel").text #전화번호
+        createdtime = item.find("createdtime").text  # 등록일
+        dist = item.find("dist").text
+
+        print("=========================================")
+        print("title : ", title)
+        print("address : ", addr1)
+        print("detailed address : ", addr2)
+        print("areacode : ", areacode)
+        print("GPS x : ", mapx)
+        print("GPS y : ", mapy)
+        # print("tel  : ", tel)
+        print("createdtime : ", createdtime)
+        print("dist(m) : ", dist)
+        print("=========================================")
