@@ -7,6 +7,7 @@ def printMenu():
     print("Search Festival = 2")
     print("Search Near = 3")
     print("Search Stay = 4")
+    print("DetailCommon = 5")
     print("Quit = q")
     print("===============================================")
 
@@ -18,6 +19,10 @@ def launcherFunction(menu):
         SearchFestival()
     elif menu == '3':
         SearchNear()
+    elif menu == '4':
+        SearchStay()
+    elif menu == '5':
+        detailCommon()
     elif menu == 'q':
         Quit()
         print("Good bye!")

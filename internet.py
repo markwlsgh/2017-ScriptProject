@@ -178,7 +178,50 @@ def SearchStay():
 
     global key
     url = 'http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchStay?'
-    new_url = url + 'ServiceKey=' + key + '&goodStay=1'  + '&arrange=A&listYN=Y&pageNo=1&numOfRows=10&MobileOS=ETC&MobileApp=AppTesting'
+    new_url = url + 'ServiceKey=' + key + '&goodstay=1'  + '&arrange=A&listYN=Y&pageNo=1&numOfRows=10&MobileOS=ETC&MobileApp=AppTesting'
+
+    data = urllib.request.urlopen(new_url).read()
+    d = str(data.decode('utf-8'))
+
+    from xml.etree import ElementTree
+    tree = ElementTree.fromstring(d)
+
+    itemElements = tree.getiterator("item")  # return list type
+    # print(itemElements)
+
+    for item in itemElements:
+        addr1 = item.find("addr1").text  # 주소
+        #addr2 = item.find("addr2").text  # 동
+        #areacode = item.find("areacode").text  # 지역번호
+        mapx = item.find("mapx").text  # x좌표
+        mapy = item.find("mapy").text  # y좌표
+        title = item.find("title").text  # 관광지 지역이름
+        # tel = item.find("tel").text #전화번호
+        #createdtime = item.find("createdtime").text  # 등록일
+        #dist = item.find("dist").text
+
+        print("=========================================")
+        print("title : ", title)
+        print("address : ", addr1)
+        #print("detailed address : ", addr2)
+        #print("areacode : ", areacode)
+        print("GPS x : ", mapx)
+        print("GPS y : ", mapy)
+        # print("tel  : ", tel)
+        #print("createdtime : ", createdtime)
+        #print("dist(m) : ", dist)
+        print("=========================================")
+
+
+#상세정보
+def detailCommon() :
+
+    print("#&contentId=126508")
+    contentId = str(input("contentId : "))
+
+    global key
+    url = 'http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?'
+    new_url = url + 'ServiceKey=' + key + '&contentId='  + contentId + '&defaultYN=Y&addrinfoYN=Y&overviewYN=Y&MobileOS=ETC&MobileApp=AppTesting'
 
     data = urllib.request.urlopen(new_url).read()
     d = str(data.decode('utf-8'))
@@ -192,22 +235,18 @@ def SearchStay():
     for item in itemElements:
         addr1 = item.find("addr1").text  # 주소
         addr2 = item.find("addr2").text  # 동
-        areacode = item.find("areacode").text  # 지역번호
-        mapx = item.find("mapx").text  # x좌표
-        mapy = item.find("mapy").text  # y좌표
+        homepage = item.find("homepage").text  # 지역번호
+        overview = item.find("overview").text  # x좌표
+        #telname = item.find("telname").text
         title = item.find("title").text  # 관광지 지역이름
-        # tel = item.find("tel").text #전화번호
-        createdtime = item.find("createdtime").text  # 등록일
-        dist = item.find("dist").text
 
         print("=========================================")
         print("title : ", title)
         print("address : ", addr1)
         print("detailed address : ", addr2)
-        print("areacode : ", areacode)
-        print("GPS x : ", mapx)
-        print("GPS y : ", mapy)
+        print("homepage : ", homepage)
+        print("overview  : ", overview)
+        #print("telname : ", telname)
         # print("tel  : ", tel)
-        print("createdtime : ", createdtime)
-        print("dist(m) : ", dist)
+        print("overview : ", overview)
         print("=========================================")
