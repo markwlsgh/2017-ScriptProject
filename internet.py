@@ -7,7 +7,7 @@ import urllib
 
 key = '4VB0o7ZOlNdClfP%2FidH3cNjCCsAfg3APKmEf7Tqg4aS2uPSNn1pA2avCeTcqVVY4pV6I7252637lX8LFUtxXJQ%3D%3D'
 
-#Å°¿öµå °Ë»ö
+#Å°ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
 def AreaFinding():
     keyword = str(input("Keyword : "))
     hangul_utf8 = urllib.parse.quote(keyword)
@@ -26,14 +26,14 @@ def AreaFinding():
     # print(itemElements)
 
     for item in itemElements:
-        addr1 = item.find("addr1").text  # ÁÖ¼Ò
-        addr2 = item.find("addr2").text  # µ¿
-        #areacode = item.find("areacode").text  # Áö¿ª¹øÈ£
-        mapx = item.find("mapx").text  # xÁÂÇ¥
-        mapy = item.find("mapy").text  # yÁÂÇ¥
-        title = item.find("title").text  # °ü±¤Áö Áö¿ªÀÌ¸§
-        #tel = item.find("tel").text #ÀüÈ­¹øÈ£
-        #createdtime = item.find("createdtime").text  # µî·ÏÀÏ
+        addr1 = item.find("addr1").text  # ï¿½Ö¼ï¿½
+        addr2 = item.find("addr2").text  # ï¿½ï¿½
+        #areacode = item.find("areacode").text  # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£
+        mapx = item.find("mapx").text  # xï¿½ï¿½Ç¥
+        mapy = item.find("mapy").text  # yï¿½ï¿½Ç¥
+        title = item.find("title").text  # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
+        #tel = item.find("tel").text #ï¿½ï¿½È­ï¿½ï¿½È£
+        #createdtime = item.find("createdtime").text  # ï¿½ï¿½ï¿½ï¿½ï¿½
 
         print("=========================================")
         print("title : ", title)
@@ -47,7 +47,7 @@ def AreaFinding():
         print("=========================================")
 
 
-#Å°¿öµå °Ë»ö
+#Å°ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
 def FindingKeyword():
     keyword = str(input("Keyword : "))
     hangul_utf8 = urllib.parse.quote(keyword)
@@ -66,28 +66,44 @@ def FindingKeyword():
     #print(itemElements)
 
     for item in itemElements:
-        addr1 = item.find("addr1").text  #ÁÖ¼Ò
-        #addr2 = item.find("addr2").text #µ¿
-        areacode = item.find("areacode").text #Áö¿ª¹øÈ£
-        mapx = item.find("mapx").text #xÁÂÇ¥
-        mapy = item.find("mapy").text #yÁÂÇ¥
-        title = item.find("title").text # °ü±¤Áö Áö¿ªÀÌ¸§
-        #tel = item.find("tel").text #ÀüÈ­¹øÈ£
-        createdtime = item.find("createdtime").text #µî·ÏÀÏ
+        if item.find("addr1") != None:
+            addr1 = item.find("addr1").text  #ï¿½Ö¼ï¿½
+        if item.find("addr2") != None:
+            addr2 = item.find("addr2").text #ï¿½ï¿½
+        if item.find("areacode") != None:
+            areacode = item.find("areacode").text #ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£
+        if item.find("mapx") != None:
+            mapx = item.find("mapx").text #xï¿½ï¿½Ç¥
+        if item.find("mapy")!= None:
+            mapy = item.find("mapy").text #yï¿½ï¿½Ç¥
+        if item.find("title")!= None:
+            title = item.find("title").text # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
+        if item.find("tel")!= None:
+            tel = item.find("tel").text #ï¿½ï¿½È­ï¿½ï¿½È£
+        if item.find("createtime")!= None:
+            createdtime = item.find("createdtime").text #ï¿½ï¿½ï¿½ï¿½ï¿½
 
         print("=========================================")
-        print("title : ", title)
-        print("address : ", addr1)
-        #print("detailed address : ", addr2)
-        print("areacode : ", areacode)
-        print("GPS x : ", mapx)
-        print("GPS y : ", mapy)
-        #print("tel  : ", tel)
-        print("createdtime : " , createdtime)
+        if item.find("title") != None:
+            print("title : ", title)
+        if item.find("addr1") != None:
+            print("address : ", addr1)
+        if item.find("addr2") != None:
+            print("detailed address : ", addr2)
+        if item.find("areacode") != None:
+            print("areacode : ", areacode)
+        if item.find("mapx") != None:
+            print("GPS x : ", mapx)
+        if item.find("mapy") != None:
+            print("GPS y : ", mapy)
+        if item.find("tel") != None:
+            print("tel  : ", tel)
+        if item.find("createtime") != None:
+            print("createdtime : " , createdtime)
         print("=========================================")
 
 
-#Çà»ç°Ë»ö
+#ï¿½ï¿½ï¿½Ë»ï¿½
 def SearchFestival():
     evejtstartDate = str(input("start date : "))
     eventEndDate = str(input("end date : "))
@@ -107,16 +123,16 @@ def SearchFestival():
     #print(itemElements)
 
     for item in itemElements:
-        addr1 = item.find("addr1").text  #ÁÖ¼Ò
-        addr2 = item.find("addr2").text #µ¿
-        areacode = item.find("areacode").text #Áö¿ª¹øÈ£
-        mapx = item.find("mapx").text #xÁÂÇ¥
-        mapy = item.find("mapy").text #yÁÂÇ¥
-        title = item.find("title").text # °ü±¤Áö Áö¿ªÀÌ¸§
-        #tel = item.find("tel").text #ÀüÈ­¹øÈ£
-        createdtime = item.find("createdtime").text #µî·ÏÀÏ
-        eventstartdate = item.find("eventstartdate").text #Çà»ç½ÃÀÛÀÏ
-        eventenddate = item.find("eventenddate").text #Çà»çÁ¾·áÀÏ
+        addr1 = item.find("addr1").text  #ï¿½Ö¼ï¿½
+        addr2 = item.find("addr2").text #ï¿½ï¿½
+        areacode = item.find("areacode").text #ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£
+        mapx = item.find("mapx").text #xï¿½ï¿½Ç¥
+        mapy = item.find("mapy").text #yï¿½ï¿½Ç¥
+        title = item.find("title").text # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
+        #tel = item.find("tel").text #ï¿½ï¿½È­ï¿½ï¿½È£
+        createdtime = item.find("createdtime").text #ï¿½ï¿½ï¿½ï¿½ï¿½
+        eventstartdate = item.find("eventstartdate").text #ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        eventenddate = item.find("eventenddate").text #ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
         print("=========================================")
         print("title : ", title)
@@ -151,14 +167,14 @@ def SearchNear():
     # print(itemElements)
 
     for item in itemElements:
-        addr1 = item.find("addr1").text  # ÁÖ¼Ò
-        addr2 = item.find("addr2").text  # µ¿
-        areacode = item.find("areacode").text  # Áö¿ª¹øÈ£
-        mapx = item.find("mapx").text  # xÁÂÇ¥
-        mapy = item.find("mapy").text  # yÁÂÇ¥
-        title = item.find("title").text  # °ü±¤Áö Áö¿ªÀÌ¸§
-        # tel = item.find("tel").text #ÀüÈ­¹øÈ£
-        createdtime = item.find("createdtime").text  # µî·ÏÀÏ
+        addr1 = item.find("addr1").text  # ï¿½Ö¼ï¿½
+        addr2 = item.find("addr2").text  # ï¿½ï¿½
+        areacode = item.find("areacode").text  # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£
+        mapx = item.find("mapx").text  # xï¿½ï¿½Ç¥
+        mapy = item.find("mapy").text  # yï¿½ï¿½Ç¥
+        title = item.find("title").text  # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
+        # tel = item.find("tel").text #ï¿½ï¿½È­ï¿½ï¿½È£
+        createdtime = item.find("createdtime").text  # ï¿½ï¿½ï¿½ï¿½ï¿½
         dist = item.find("dist").text
 
         print("=========================================")
@@ -190,14 +206,14 @@ def SearchStay():
     # print(itemElements)
 
     for item in itemElements:
-        addr1 = item.find("addr1").text  # ÁÖ¼Ò
-        #addr2 = item.find("addr2").text  # µ¿
-        #areacode = item.find("areacode").text  # Áö¿ª¹øÈ£
-        mapx = item.find("mapx").text  # xÁÂÇ¥
-        mapy = item.find("mapy").text  # yÁÂÇ¥
-        title = item.find("title").text  # °ü±¤Áö Áö¿ªÀÌ¸§
-        # tel = item.find("tel").text #ÀüÈ­¹øÈ£
-        #createdtime = item.find("createdtime").text  # µî·ÏÀÏ
+        addr1 = item.find("addr1").text  # ï¿½Ö¼ï¿½
+        #addr2 = item.find("addr2").text  # ï¿½ï¿½
+        #areacode = item.find("areacode").text  # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£
+        mapx = item.find("mapx").text  # xï¿½ï¿½Ç¥
+        mapy = item.find("mapy").text  # yï¿½ï¿½Ç¥
+        title = item.find("title").text  # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
+        # tel = item.find("tel").text #ï¿½ï¿½È­ï¿½ï¿½È£
+        #createdtime = item.find("createdtime").text  # ï¿½ï¿½ï¿½ï¿½ï¿½
         #dist = item.find("dist").text
 
         print("=========================================")
@@ -213,7 +229,7 @@ def SearchStay():
         print("=========================================")
 
 
-#»ó¼¼Á¤º¸
+#ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 def detailCommon() :
 
     print("#&contentId=126508")
@@ -233,12 +249,12 @@ def detailCommon() :
     # print(itemElements)
 
     for item in itemElements:
-        addr1 = item.find("addr1").text  # ÁÖ¼Ò
-        addr2 = item.find("addr2").text  # µ¿
-        homepage = item.find("homepage").text  # Áö¿ª¹øÈ£
-        overview = item.find("overview").text  # xÁÂÇ¥
+        addr1 = item.find("addr1").text  # ï¿½Ö¼ï¿½
+        addr2 = item.find("addr2").text  # ï¿½ï¿½
+        homepage = item.find("homepage").text  # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£
+        overview = item.find("overview").text  # xï¿½ï¿½Ç¥
         #telname = item.find("telname").text
-        title = item.find("title").text  # °ü±¤Áö Áö¿ªÀÌ¸§
+        title = item.find("title").text  # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
 
         print("=========================================")
         print("title : ", title)
