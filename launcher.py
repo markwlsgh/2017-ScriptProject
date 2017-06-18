@@ -3,12 +3,12 @@ from internet import *
 loopFlag = 1
 def printMenu():
     print("======================Menu=====================")
-    print("Search Keyword = 1")
-    print("Search Festival = 2")
-    print("Search Near = 3")
-    print("Search Stay = 4")
-    print("DetailCommon = 5")
-    print("Quit = q")
+    print("키워드 검색= 1")
+    print("행사 검색= 2")
+    print("주변 검색 = 3")
+    print("숙박업소 검색 = 4")
+    print("상세정보 검색 = 5")
+    print("종료 = q")
     print("===============================================")
 
 

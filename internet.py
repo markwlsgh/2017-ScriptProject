@@ -1,11 +1,7 @@
 from http.client import HTTPConnection
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
-import urllib.request
-import urllib
 
-
-key = '4VB0o7ZOlNdClfP%2FidH3cNjCCsAfg3APKmEf7Tqg4aS2uPSNn1pA2avCeTcqVVY4pV6I7252637lX8LFUtxXJQ%3D%3D'
 
 #Ű���� �˻�
 def AreaFinding():
@@ -48,60 +44,6 @@ def AreaFinding():
 
 
 #Ű���� �˻�
-def FindingKeyword():
-    keyword = str(input("Keyword : "))
-    hangul_utf8 = urllib.parse.quote(keyword)
-
-    global key
-    url = 'http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchKeyword?'
-    new_url = url + 'ServiceKey='+ key + '&keyword=' + hangul_utf8 + '&MobileOS=ETC&MobileApp=AppTesting'
-
-    data = urllib.request.urlopen(new_url).read()
-    d = str(data.decode('utf-8'))
-
-    from xml.etree import ElementTree
-    tree = ElementTree.fromstring(d)
-
-    itemElements = tree.getiterator("item")  # return list type
-    #print(itemElements)
-
-    for item in itemElements:
-        if item.find("addr1") != None:
-            addr1 = item.find("addr1").text  #�ּ�
-        if item.find("addr2") != None:
-            addr2 = item.find("addr2").text #��
-        if item.find("areacode") != None:
-            areacode = item.find("areacode").text #������ȣ
-        if item.find("mapx") != None:
-            mapx = item.find("mapx").text #x��ǥ
-        if item.find("mapy")!= None:
-            mapy = item.find("mapy").text #y��ǥ
-        if item.find("title")!= None:
-            title = item.find("title").text # ������ �����̸�
-        if item.find("tel")!= None:
-            tel = item.find("tel").text #��ȭ��ȣ
-        if item.find("createtime")!= None:
-            createdtime = item.find("createdtime").text #�����
-
-        print("=========================================")
-        if item.find("title") != None:
-            print("title : ", title)
-        if item.find("addr1") != None:
-            print("address : ", addr1)
-        if item.find("addr2") != None:
-            print("detailed address : ", addr2)
-        if item.find("areacode") != None:
-            print("areacode : ", areacode)
-        if item.find("mapx") != None:
-            print("GPS x : ", mapx)
-        if item.find("mapy") != None:
-            print("GPS y : ", mapy)
-        if item.find("tel") != None:
-            print("tel  : ", tel)
-        if item.find("createtime") != None:
-            print("createdtime : " , createdtime)
-        print("=========================================")
-
 
 #���˻�
 def SearchFestival():
